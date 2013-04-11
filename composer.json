@@ -1,0 +1,28 @@
+{
+    "name": "simbiotica/yql-bundle",
+    "type": "symfony-bundle",
+    "description": "Yahoo YQL API integration for Symfony2",
+    "keywords": ["cartodb"],
+    "homepage": "http://github.com/simbiotica/SimbioticaYQLBundle",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Tiago Garcia",
+            "email": "tiago@simbiotica.es",
+            "homepage": "http://simbiotica.es/en/",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "php": ">=5.3.3",
+        "symfony/framework-bundle": ">=2.2,<2.3-dev"
+    },
+    "require-dev": {
+        "symfony/framework-bundle": ">=2.2,<2.3-dev",
+        "symfony/symfony": ">=2.2,<2.3-dev"
+    },
+    "autoload": {
+        "psr-0": { "Simbiotica\\YQLBundle": "" }
+    },
+    "target-dir": "Simbiotica/YQLBundle"
+}

@@ -1,0 +1,3 @@
+services:
+    simbiotica.yql.client:
+        class: Simbiotica\YQLBundle\Connection\Connection

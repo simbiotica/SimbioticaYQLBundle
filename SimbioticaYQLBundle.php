@@ -1,9 +1,9 @@
 <?php
 
-namespace Simbiotica\CartoDBBundle;
+namespace Simbiotica\YQLBundle;
 
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 
-class SimbioticaCartoDBBundle extends Bundle
+class SimbioticaYQLBundle extends Bundle
 {
 }

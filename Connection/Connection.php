@@ -24,17 +24,20 @@ class Connection
     function __construct()
     {
         $this->apiUrl = "http://query.yahooapis.com/v1/public/yql";
-        $this->params = array("env" => "http://datatables.org/alltables.env");
+        $this->params = array(
+                "env" => "store://datatables.org/alltableswithkeys",
+                "format" => "json",
+        );
     }
     
-    protected function request($uri, $method = 'GET', $args = array())
+    protected function request($args = array())
     {
         if (!array_key_exists('params', $args))
             $args['params'] = $this->params;
         else
             $args['params'] = array_merge($args['params'], $this->params);
         
-        $url = $this->apiUrl . $uri;
+        $url = $this->apiUrl.'?'.implode('&', array_map(function($key, $item) {return $key.'='.urlencode($item);}, array_keys($args['params']), $args['params']));
     
         if (!isset($args['headers']['Accept'])) {
             $args['headers']['Accept'] = 'application/json';
@@ -48,12 +51,10 @@ class Connection
         curl_setopt_array($ch, $options);
     
         $response = array();
-        $response['return'] = ($this->json_decode) ? (array) json_decode(
-                curl_exec($ch)) : curl_exec($ch);
+        $response['return'] = json_decode(curl_exec($ch));
         $response['info'] = curl_getinfo($ch);
     
         if ($response['info']['http_code'] == 401) {
-            $this->authorized = $this->getAccessToken();
             return $this->request($uri, $method, $args);
         }
     
@@ -68,21 +69,14 @@ class Connection
     public function runSql($sql)
     {
         $params = array('q' => $sql);
-        $payload = $this->request('sql', 'POST', array('params' => $params));
+        $payload = $this->request(array('params' => $params));
 
         $info = $payload->getInfo();
         $rawResponse = $payload->getRawResponse();
         if ($info['http_code'] != 200) {
-            var_dump($payload->getRequest());
-            if (!empty($rawResponse['return']['error']))
-                throw new \RuntimeException(sprintf(
-                    'There was a problem with your request "%s": %s',
-                    $payload->getRequest(),
-                    implode('<br>', $rawResponse['return']['error'])));
-            else
-                throw new \RuntimeException(sprintf(
-                    'There was a problem with your request "%s"',
-                    $payload->getRequest()));
+            throw new \RuntimeException(sprintf(
+                'There was a problem with your request "%s"',
+                var_export($rawResponse)));
         }
         
         return $payload;

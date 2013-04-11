@@ -32,10 +32,11 @@ class Payload {
     public function setRawResponse(array $rawResponse)
     {
         $this->rawResponse = $rawResponse;
-        $this->time = isset($rawResponse['return']['time'])?$rawResponse['return']['time']:null;
-        $this->rowCount = isset($rawResponse['return']['total_rows'])?$rawResponse['return']['total_rows']:null;
+        if(!is_null($rawResponse['return']->query->results)){  
+            $this->rowCount = $rawResponse['return']->query->count;
+            $this->data = $rawResponse['return']->query->results;
+        }
         $this->info = isset($rawResponse['info'])?$rawResponse['info']:null;
-        $this->data = isset($rawResponse['return']['rows'])?$rawResponse['return']['rows']:array();
     }
     
     function __toString()

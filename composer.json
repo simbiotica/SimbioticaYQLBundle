@@ -2,7 +2,7 @@
     "name": "simbiotica/yql-bundle",
     "type": "symfony-bundle",
     "description": "Yahoo YQL API integration for Symfony2",
-    "keywords": ["cartodb"],
+    "keywords": ["yahoo", "yql"],
     "homepage": "http://github.com/simbiotica/SimbioticaYQLBundle",
     "license": "MIT",
     "authors": [

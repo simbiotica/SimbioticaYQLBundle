@@ -3,7 +3,7 @@ SimbioticaYQLBundle
 
 Yahoo YQL API integration for Symfony2
 
-WORK IN PROGRESS - NOT FUNCTIONAL
+WORK IN PROGRESS - NOT FULLY FUNCTIONAL
 ----------------
 
 
